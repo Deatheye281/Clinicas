@@ -29,8 +29,8 @@ Crear nuevo diagnostico
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label>Compilacion:</label>
-        <input type="text" class="form-control" name="compilacion" placeholder="">
+        <label>Complicacion:</label>
+        <input type="text" class="form-control" name="complicacion" placeholder="">
         </div>
     </div>
     <div class="form-row">

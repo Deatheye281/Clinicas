@@ -30,8 +30,8 @@
         </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label>Compilacion:</label>
-        <input type="text" class="form-control" name="compilacion" value="{{$diagnostico->compilacion}}">
+        <label>Complicacion del diagnostico:</label>
+        <input type="text" class="form-control" name="complicacion" value="{{$diagnostico->complicacion}}">
         </div>
     </div>   
     <div class="form-row">

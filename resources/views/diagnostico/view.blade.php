@@ -17,10 +17,10 @@
 </div>
 <div class="row">
     <div class="col-sm-3">
-        <h3>Compilacion: </h3>
+        <h3>Complicacion: </h3>
     </div>
     <div class="col-sm-3">
-        <p class="lead">{{$diagnostico->compilacion}}</p>
+        <p class="lead">{{$diagnostico->complicacion}}</p>
     </div>       
 </div>
 <br><br>

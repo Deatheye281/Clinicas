@@ -43,7 +43,7 @@ class DiagnosticoController extends Controller
     {
         $request->validate([
             'tipo' => 'required',
-            'compilacion' => 'required'
+            'complicacion' => 'required'
         ]);
 
         App\Diagnostico::create($request->all());      
@@ -93,7 +93,7 @@ class DiagnosticoController extends Controller
     {
         $request->validate([
             'tipo' => 'required',
-            'compilacion' => 'required'
+            'complicacion' => 'required'
         ]);
         
         $diagnostico = App\Diagnostico::findorfail($id);

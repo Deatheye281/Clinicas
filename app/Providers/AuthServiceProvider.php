@@ -86,11 +86,11 @@ class AuthServiceProvider extends ServiceProvider
         });
 //medico
         Gate::define('crear-medico', function($user) {
-            return $user->hasAnyRol(['admin','medico']);
+            return $user->hasRol(['admin']);
         });
 
         Gate::define('editar-medico', function($user) {
-            return $user->hasAnyRol(['admin','medico']);
+            return $user->hasRol(['admin']);
         });
 
         Gate::define('eliminar-medico', function($user) {

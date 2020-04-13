@@ -16,7 +16,7 @@ class CreateDiagnosticosTable extends Migration
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('tipo');
-            $table->string('compilacion');   
+            $table->string('complicacion');   
             $table->timestamps();
         });
     }

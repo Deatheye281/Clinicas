@@ -17,7 +17,7 @@ Diagnostico
         <thead>
             <tr>
                 <th>Tipo</th>
-                <th>Compilacion</th>
+                <th>Complicacion</th>
                 <th>Funciones</th>                
             <tr>
         </thead>
@@ -25,7 +25,7 @@ Diagnostico
             @foreach ($diagnosticos as $diagnostico)
             <tr>
                 <td>{{$diagnostico -> tipo}}</td>
-                <td>{{$diagnostico -> compilacion}}</td>                
+                <td>{{$diagnostico -> complicacion}}</td>                
                 <td>
                     <form action="{{route('diagnostico.destroy', $diagnostico->id)}}" method="post">
                     <a href="{{route('diagnostico.show', $diagnostico->id)}}" class="btn btn-info">Ver</a>
