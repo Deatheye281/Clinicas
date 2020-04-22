@@ -47,7 +47,8 @@ Crear nueva sala
         <a href="#" class="btn btn-primary" id="registro">Crear Sala</a>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('sala.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

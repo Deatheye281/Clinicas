@@ -47,7 +47,8 @@ Crear nuevo medico
         <a href="#" class="btn btn-primary" id="registro">Crear Medico</a>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('medico.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

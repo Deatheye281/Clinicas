@@ -51,6 +51,8 @@ Crear nueva consulta
         <a href="#" class="btn btn-primary" id="registro">Crear informacion</a>
     </div>
     </form>
+    <br>
+    <a href="{{route('diagnostico.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

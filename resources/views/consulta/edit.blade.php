@@ -60,5 +60,7 @@
         <button type="submit" class="btn btn-primary">Modificar consulta</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('consulta.index')}}"><button class="btn btn-primary">Volver</button></a>
 
 @endsection

@@ -51,6 +51,8 @@ Crear nueva fecha de diagnostico
         <a href="#" class="btn btn-primary" id="registro">Crear fecha de diagnostico</a>
     </div>
     </form>
+    <br>
+    <a href="{{route('fechadia.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

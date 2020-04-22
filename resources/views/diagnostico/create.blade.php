@@ -45,7 +45,8 @@ Crear nuevo diagnostico
         <a href="#" class="btn btn-primary" id="registro">Crear diagnostico</a>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('diagnostico.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

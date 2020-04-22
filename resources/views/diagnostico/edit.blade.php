@@ -23,11 +23,19 @@
     @csrf
     @method('PUT')
     <div class="form-row">
-            <div class="form-group col-md-6">
-            <label>Tipo de Diagnostico:</label>
-            <input type="text" class="form-control" name="tipo" value="{{$diagnostico->tipo}}">
-            </div>
+        <div class="form-group col-md-6">
+        <label>Tipo de Diagnostico:</label>
+        <select name="tipo" class="form-control">            
+            <option value="Diagnostico diferencial">Diagnostico diferencial</option>
+            <option value="Diagnostico precoz">Diagnostico precoz</option>
+            <option value="Diagnostico por comparacion">Diagnostico por comparacion</option>
+            <option value="Diagnostico por intuicion">Diagnostico por intuicion</option>
+            <option value="Diagnostico por hipotesis">Diagnostico por hipotesis</option>
+            <option value="Rayos X">Rayos X</option>
+            <option value="Biopsia">Biopsia</option>                  
+        </select>
         </div>
+    </div>
     <div class="form-row">
         <div class="form-group col-md-6">
         <label>Complicacion del diagnostico:</label>
@@ -38,5 +46,6 @@
         <button type="submit" class="btn btn-primary">Modificar Diagnostico</button>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('diagnostico.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

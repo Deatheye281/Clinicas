@@ -47,4 +47,6 @@ Crear nueva sala
         <button type="submit" class="btn btn-primary">Crear Sala</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('sala.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

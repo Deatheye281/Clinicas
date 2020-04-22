@@ -44,5 +44,7 @@
         <button type="submit" class="btn btn-primary">Modificar laboratorio</button>
     </div>
 </form>
+<br>
+    <a href="{{route('laboratorio.index')}}"><button class="btn btn-primary">Volver</button></a>
 
 @endsection

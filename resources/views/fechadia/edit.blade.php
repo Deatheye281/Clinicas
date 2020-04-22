@@ -60,5 +60,6 @@
         <button type="submit" class="btn btn-primary">Modificar fecha diagnostico</button>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('fechadia.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

@@ -47,4 +47,6 @@ Crear nuevo medico
         <button type="submit" class="btn btn-primary">Crear Medico</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('medico.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

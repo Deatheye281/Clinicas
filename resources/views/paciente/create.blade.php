@@ -91,7 +91,8 @@ Crear nuevo paciente
         <a href="#" class="btn btn-primary" id="registro">Crear paciente</a>
     </div>
     </form>
-    
+    <br>
+    <a href="{{route('paciente.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

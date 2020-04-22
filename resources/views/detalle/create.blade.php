@@ -57,6 +57,8 @@ Crear nueva informacion
         <a href="#" class="btn btn-primary" id="registro">Crear informacion</a>
     </div>
     </form>
+    <br>
+    <a href="{{route('detalle.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

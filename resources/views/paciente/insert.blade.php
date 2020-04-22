@@ -91,4 +91,6 @@ Crear nuevo paciente
         <button type="submit" class="btn btn-primary">Crear paciente</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('paciente.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

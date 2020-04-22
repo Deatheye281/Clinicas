@@ -49,7 +49,8 @@ Crear nuevo hospital
         <a href="#" class="btn btn-primary" id="registro">Crear hospital</a>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('hospital.index')}}"><button class="btn btn-primary">Volver</button></a>
     <script>
         $('#registro').click(function(){
             var datos = $('#formulario').serialize();

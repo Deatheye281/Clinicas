@@ -66,5 +66,7 @@
         <button type="submit" class="btn btn-primary">Modificar informacion</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('detalle.index')}}"><button class="btn btn-primary">Volver</button></a>
 
 @endsection

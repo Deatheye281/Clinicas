@@ -50,5 +50,6 @@
         <button type="submit" class="btn btn-primary">Modificar Hospital</button>
     </div>
     </form>
-
+    <br>
+    <a href="{{route('hospital.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection

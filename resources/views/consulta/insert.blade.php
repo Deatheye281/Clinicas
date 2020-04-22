@@ -51,4 +51,6 @@ Crear nueva consulta
         <button type="submit" class="btn btn-primary">Crear informacion</button>
     </div>
     </form>
+    <br>
+    <a href="{{route('consulta.index')}}"><button class="btn btn-primary">Volver</button></a>
 @endsection
