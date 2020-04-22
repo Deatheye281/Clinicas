@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class MedicoController extends Controller
 {
+    public function listar()
+    {
+        $medicos = App\Medico::orderby('nombre', 'asc')->get();
+        return response()->json([
+            $medicos
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class MedicoController extends Controller
      */
     public function index()
     {
-        $medicos = App\Medico::orderby('nombre', 'asc')->get();
+        $medicos[0] = App\Medico::orderby('nombre', 'asc')->get();
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();                  
         return view('medico.index', compact('medicos', 'hospitales'));
     }
@@ -31,8 +39,10 @@ class MedicoController extends Controller
         {
             return redirect()->route('medico.index');
         }
+        $medicos = App\Medico::orderby('nombre', 'asc')->get();
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
-        return view('medico.insert', compact('hospitales'));
+        return view('medico.create', compact('hospitales', 'medicos'));
+        //return view('medico.insert', compact('hospitales'));
     }
 
     /**
@@ -43,7 +53,14 @@ class MedicoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+        if($request->ajax()){
+            App\Medico::create($request->all());
+            return response()->json([
+                'mensaje' => 'Creado'
+            ]);
+        }
+        /*$request->validate([
             'nombre' => 'required',
             'especialidad' => 'required',
             'idhospital' => 'required'                   
@@ -52,7 +69,7 @@ class MedicoController extends Controller
         App\Medico::create($request->all());      
         
         return redirect()->route('medico.index')
-                ->with('exito', 'se ha creado el medico correctamente');
+                ->with('exito', 'se ha creado el medico correctamente');*/
     }
 
     /**
@@ -87,7 +104,11 @@ class MedicoController extends Controller
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
         $medico = App\Medico::findorfail($id);
 
-        return view('medico.edit', compact('medico', 'hospitales'));
+        return response()->json([
+            $medico
+        ]);
+
+        //return view('medico.edit', compact('medico', 'hospitales'));
     }
 
     /**
@@ -109,8 +130,12 @@ class MedicoController extends Controller
 
         $medico->update($request->all());
 
-        return redirect()->route('medico.index')
-                ->with('exito', 'se ha modificado el medico correctamente');
+        return response()->json([
+            "mensaje" => "modificado"
+        ]);
+
+        /*return redirect()->route('medico.index')
+                ->with('exito', 'se ha modificado el medico correctamente');*/
     }
 
     /**

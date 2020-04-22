@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class HospitalController extends Controller
 {
+
+    public function listar()
+    {
+        $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
+        return response()->json([
+            $hospitales
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +33,13 @@ class HospitalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {        
         if (Gate::denies('crear-hospital'))
         {
             return redirect()->route('hospital.index');
         }
-        return view('hospital.insert');
+        return view('hospital.create');
+        //return view('hospital.insert');
     }
 
     /**
@@ -41,7 +50,13 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        if($request->ajax()){
+            App\Hospital::create($request->all());
+            return response()->json([
+                'mensaje' => 'Creado'
+            ]);
+        }
+        /*$request->validate([
             'nombre' => 'required',
             'direccion' => 'required',
             'telefono' => 'required',
@@ -51,7 +66,7 @@ class HospitalController extends Controller
         App\Hospital::create($request->all());      
         
         return redirect()->route('hospital.index')
-                ->with('exito', 'se ha creado el hospital correctamente');
+                ->with('exito', 'se ha creado el hospital correctamente');*/
     }
 
     /**
@@ -81,7 +96,10 @@ class HospitalController extends Controller
         }
         $hospital = App\Hospital::findorfail($id);
 
-        return view('hospital.edit', compact('hospital'));
+        return response()->json([
+            $hospital
+        ]);
+        //return view('hospital.edit', compact('hospital'));
     }
 
     /**
@@ -104,8 +122,11 @@ class HospitalController extends Controller
 
         $hospital->update($request->all());
 
-        return redirect()->route('hospital.index')
-                ->with('exito', 'se ha modificado el hospital correctamente');
+        return response()->json([
+            "mensaje" => "modificado"
+        ]);
+        /*return redirect()->route('hospital.index')
+                ->with('exito', 'se ha modificado el hospital correctamente');*/
     }
 
     /**

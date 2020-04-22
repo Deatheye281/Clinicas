@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Consulta extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['fecha', 'idmedico', 'idpaciente'];
 }
