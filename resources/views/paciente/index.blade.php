@@ -5,7 +5,7 @@ Paciente
 @endsection
 
 @section('contenido')
-@include('paciente.modal')
+{{--@include('paciente.modal')--}}
 <h1 class="text-center">Paciente</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,36 +17,34 @@ Paciente
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Sala asignada</th>
-                <th>Nombre</th>
-                <th>Numero de registro</th>
-                <th>Numero de cama</th>
-                <th>Direccion</th>
-                <th>Fecha de nacimiento</th>
-                <th>Sexo</th>
-                <th>Funciones</th> 
+                <th class="text-center">ID Sala</th>
+                <th class="text-center">Nombre</th>                   
+                <th class="text-center">Direccion</th>                          
+                <th class="text-center">Sexo</th>
+                <th class="text-center">Funciones</th> 
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($pacientes as $paciente)                
-            <tr>                               
-                <td>{{$paciente -> idsala}}</td>                
-                <td>{{$paciente -> nombre}}</td>
-                <td>{{$paciente -> N_registro}}</td> 
-                <td>{{$paciente -> N_cama}}</td>
-                <td>{{$paciente -> direccion}}</td>
-                <td>{{$paciente -> F_nacimiento}}</td>
-                <td>{{$paciente -> sexo}}</td>
-                <td>
+            <tr class="text-center">                               
+                <td class="text-center">{{$paciente -> idsala}}</td>                       
+                <td class="text-center">{{$paciente -> nombre}}</td>                
+                <td class="text-center">{{$paciente -> direccion}}</td>                
+                <td class="text-center">{{$paciente -> sexo}}</td>
+                <td class="text-center">
                     <form action="{{route('paciente.destroy', $paciente->id)}}" method="post">
-                    <a href="{{route('paciente.show', $paciente->id)}}" class="btn btn-info">Ver</a>
-                    {{--<a href="{{route('paciente.edit', $paciente->id)}}" class="btn btn-primary">Editar</a>--}}
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$paciente->id}}" onclick="mostrar(this)">
+                    <a href="{{route('paciente.show', $paciente->id)}}" class="btn btn-info">Ver</a>                    
+                    @can('editar-paciente')
+                    <a href="{{route('paciente.edit', $paciente->id)}}" class="btn btn-primary">Editar</a>
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$paciente->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
+                    </button>--}}
+                    @endcan
+                    @can('eliminar-paciente')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>                  
@@ -56,11 +54,19 @@ Paciente
     <br><br>
 
     <div class="row">
-        <a href="{{route('paciente.create')}} "><button class="btn btn-success">Crear paciente</button></a>
-        <a href="{{route('diagnostico.index')}}"><button class="btn btn-success">Diagnosticar paciente</button></a>
+        <ul>
+        <li><h5>Crear un nuevo paciente</h5>
+        <a href="{{route('paciente.create')}}"><button class="btn btn-success">Crear Paciente</button></a> </li>
+
+       <li><h5>Crear un nuevo diagnostico</h5>
+        <a href="{{route('diagnostico.index')}}"><button class="btn btn-success">Crear Diagnostico</button></a> </li>
+    
+        <li><h5>Home</h5>
+        <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+        </ul>        
     </div>
 
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "paciente/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -103,5 +109,5 @@ Paciente
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection

@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class SalaController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $salas = App\Sala::orderby('nombre', 'asc')->get();
         return response()->json([
             $salas
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +41,8 @@ class SalaController extends Controller
             return redirect()->route('sala.index');
         }
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
-        return view('sala.create', compact('hospitales'));
-        //return view('sala.insert', compact('hospitales'));
+        //return view('sala.create', compact('hospitales'));
+        return view('sala.insert', compact('hospitales'));
     }
 
     /**
@@ -54,14 +54,14 @@ class SalaController extends Controller
     public function store(Request $request)
     {
 
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Sala::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'nombre' => 'required',
             'c_camas' => 'required',
             'idhospital' => 'required'                   
@@ -70,7 +70,7 @@ class SalaController extends Controller
         App\Sala::create($request->all());      
         
         return redirect()->route('sala.index')
-                ->with('exito', 'se ha creado la sala correctamente');*/
+                ->with('exito', 'se ha creado la sala correctamente');
     }
 
     /**
@@ -104,11 +104,11 @@ class SalaController extends Controller
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
         $sala = App\Sala::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $sala
-        ]);
+        ]);*/
 
-        //return view('sala.edit', compact('sala', 'hospitales'));
+        return view('sala.edit', compact('sala', 'hospitales'));
     }
 
     /**
@@ -130,12 +130,12 @@ class SalaController extends Controller
 
         $sala->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('sala.index')
-                ->with('exito', 'se ha modificado la sala correctamente');*/
+        return redirect()->route('sala.index')
+                ->with('exito', 'se ha modificado la sala correctamente');
     }
 
     /**

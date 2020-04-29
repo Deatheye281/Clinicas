@@ -5,7 +5,7 @@ Sala
 @endsection
 
 @section('contenido')
-@include('sala.modal')
+{{--@include('sala.modal')--}}
 <h1 class="text-center">Sala</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,28 +17,32 @@ Sala
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID Hospital</th>
-                <th>Nombre</th>
-                <th>Cantidad de camas</th>
-                <th>Funciones</th>                
+                <th class="text-center">ID Hospital</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Cantidad de camas</th>
+                <th class="text-center">Funciones</th>                
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($salas as $sala)
-            <tr>                             
-                <td>{{$sala -> idhospital}}</td>           
-                <td>{{$sala -> nombre}}</td>
-                <td>{{$sala -> c_camas}}</td>                
-                <td>
+            <tr class="text-center">                             
+                <td class="text-center">{{$sala -> idhospital}}</td>           
+                <td class="text-center">{{$sala -> nombre}}</td>
+                <td class="text-center">{{$sala -> c_camas}}</td>                
+                <td class="text-center">
                     <form action="{{route('sala.destroy', $sala->id)}}" method="post">
-                    <a href="{{route('sala.show', $sala->id)}}" class="btn btn-info">Ver</a>
-                   {{-- <a href="{{route('sala.edit', $sala->id)}}" class="btn btn-primary">Editar</a>--}}
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$sala->id}}" onclick="mostrar(this)">
+                    <a href="{{route('sala.show', $sala->id)}}" class="btn btn-info">Ver</a>                   
+                    @can('editar-sala')
+                    <a href="{{route('sala.edit', $sala->id)}}" class="btn btn-primary">Editar</a>
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$sala->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
+                    </button>--}}
+                    @endcan
+                    @can('eliminar-sala')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>                
@@ -48,11 +52,19 @@ Sala
     <br><br>
 
     <div class="row">
-        <a href="{{route('sala.create')}} "><button class="btn btn-success">Crear sala</button></a>
-        <a href="{{route('paciente.index')}}"><button class="btn btn-success">Lista de pacientes</button></a>
+        <ul>
+        <li><h5>Crear una nueva sala</h5>
+        <a href="{{route('sala.create')}}"><button class="btn btn-success">Crear Sala</button></a> </li>
+
+       <li><h5>Crear nuevo paciente</h5>
+        <a href="{{route('paciente.index')}}"><button class="btn btn-success">Crear Paciente</button></a> </li>
+    
+        <li><h5>Home</h5>
+        <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+        </ul>        
     </div>
 
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "sala/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -91,5 +103,5 @@ Sala
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection

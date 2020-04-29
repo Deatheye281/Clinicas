@@ -27,13 +27,9 @@
           <div class="form-row">
               <div class="form-group col-md-6">
                   <label>Hospital:</label>
-                  <select name="idhospital" class="form-control" id="idhospital">
+                  <select name="idhospital" class="form-control" id="hospital">
                       @foreach ($hospitales as $hospital)
-                          <option value="{{$hospital->id}}"
-                          @if ($medico -> $hospital == $hospital->id)
-                              selected
-                          @endif>
-                          {{$hospital->nombre}}</option>
+                          <option value="{{$hospital->id}}"></option>
                       @endforeach
                   </select>
               </div>
@@ -46,5 +42,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
   

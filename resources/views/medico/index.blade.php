@@ -5,7 +5,7 @@ Medico
 @endsection
 
 @section('contenido')
-@include('medico.modal')
+{{--@include('medico.modal')--}}
 <h1 class="text-center">Medico</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,28 +17,32 @@ Medico
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Hospital asignado</th>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>Funciones</th>                
+                <th class="text-center">ID Hospital</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Especialidad</th>
+                <th class="text-center">Funciones</th>                
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($medicos as $medico)                 
-            <tr>
-                <td>{{$medico -> idhospital}}</td>                            
-                <td>{{$medico -> nombre}}</td>
-                <td>{{$medico -> especialidad}}</td>                
-                <td>
+            <tr class="text-center">
+                <td class="text-center">{{$medico -> idhospital}}</td>                            
+                <td class="text-center">{{$medico -> nombre}}</td>
+                <td class="text-center">{{$medico -> especialidad}}</td>                
+                <td class="text-center">
                     <form action="{{route('medico.destroy', $medico->id)}}" method="post">
                     <a href="{{route('medico.show', $medico->id)}}" class="btn btn-info">Ver</a>
-                    {{--<a href="{{route('medico.edit', $medico->id)}}" class="btn btn-primary">Editar</a>--}}
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$medico->id}}" onclick="mostrar(this)">
+                    @can('editar-medico')
+                    <a href="{{route('medico.edit', $medico->id)}}" class="btn btn-primary">Editar</a>                   
+                   {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$medico->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
+                    </button>--}}
+                    @endcan
+                    @can('eliminar-medico')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>                           
@@ -48,10 +52,23 @@ Medico
     <br><br>
 
     <div class="row">
-        <a href="{{route('medico.create')}} "><button class="btn btn-success">Crear medico</button></a>
-    </div>
+        <ul>
+        <li><h5>Crear un nuevo medico</h5>
+        <a href="{{route('medico.create')}}"><button class="btn btn-success">Crear Medico</button></a> </li>
 
-    <script>
+       <li><h5>Crear un nuevo paciente</h5>
+        <a href="{{route('paciente.index')}}"><button class="btn btn-success">Crear Paciente</button></a> </li>
+    
+       <li> <h5>Crear una nueva consulta</h5>
+        <a href="{{route('consulta.index')}}"><button class="btn btn-success">Crear Consultas</button></a></li>
+            
+        <li><h5>Home</h5>
+        <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+        </ul>
+        
+    </div> 
+
+    {{--<script>
         function mostrar(btn){
             var ruta = "medico/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -84,11 +101,11 @@ Medico
 
             tabla.empty();
 
-            $.get(ruta, function(respuesta){
+            $.get(ruta, function(respuesta){                
                 respuesta[0].forEach(element => {
                     tabla.append("<tr><td>" + element.nombre + "</td><td>" + element.especialidad + "</td><td>" + element.idhospital + "</td><td><button class='btn btn-info'>Ver</button><button class='btn btn-success'>Editar</button><button class='btn btn-danger'>Eliminar</button></td></tr>");
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection

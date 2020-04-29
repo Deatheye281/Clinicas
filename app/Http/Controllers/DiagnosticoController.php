@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class DiagnosticoController extends Controller
 {
     
-    public function listar()
+    /*public function listar()
     {
         $diagnosticos = App\Diagnostico::orderby('tipo', 'asc')->get();
         return response()->json([
             $diagnosticos
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -38,8 +38,8 @@ class DiagnosticoController extends Controller
         {
             return redirect()->route('diagnostico.index');
         }
-        return view('diagnostico.create');
-        //return view('diagnostico.insert');
+        //return view('diagnostico.create');
+        return view('diagnostico.insert');
     }
 
     /**
@@ -50,13 +50,13 @@ class DiagnosticoController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Diagnostico::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
-        /*$request->validate([
+        }*/
+        $request->validate([
             'tipo' => 'required',
             'complicacion' => 'required'
         ]);
@@ -64,7 +64,7 @@ class DiagnosticoController extends Controller
         App\Diagnostico::create($request->all());      
         
         return redirect()->route('diagnostico.index')
-                ->with('exito', 'se ha creado el diagnostico correctamente');*/
+                ->with('exito', 'se ha creado el diagnostico correctamente');
     }
 
     /**
@@ -94,11 +94,11 @@ class DiagnosticoController extends Controller
         }
         $diagnostico = App\Diagnostico::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $diagnostico
-        ]);
+        ]);*/
 
-        //return view('diagnostico.edit', compact('diagnostico'));
+        return view('diagnostico.edit', compact('diagnostico'));
     }
 
     /**
@@ -119,12 +119,12 @@ class DiagnosticoController extends Controller
 
         $diagnostico->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        //return redirect()->route('diagnostico.index')
-         //       ->with('exito', 'se ha modificado el diagnostico correctamente');
+        return redirect()->route('diagnostico.index')
+                ->with('exito', 'se ha modificado el diagnostico correctamente');
     }
 
     /**

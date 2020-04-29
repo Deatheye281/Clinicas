@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class LaboratorioController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $laboratorios = App\Laboratorio::orderby('nombre', 'asc')->get();
         return response()->json([
             $laboratorios
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -38,8 +38,8 @@ class LaboratorioController extends Controller
         {
             return redirect()->route('laboratorio.index');
         }
-        return view('laboratorio.create');
-        //return view('laboratorio.insert');
+        //return view('laboratorio.create');
+        return view('laboratorio.insert');
     }
 
     /**
@@ -50,14 +50,14 @@ class LaboratorioController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Laboratorio::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'nombre' => 'required',
             'direccion' => 'required',
             'telefono' => 'required'
@@ -66,7 +66,7 @@ class LaboratorioController extends Controller
         App\Laboratorio::create($request->all());      
         
         return redirect()->route('laboratorio.index')
-                ->with('exito', 'se ha creado el laboratorio correctamente');*/
+                ->with('exito', 'se ha creado el laboratorio correctamente');
     }    
 
     /**
@@ -96,11 +96,11 @@ class LaboratorioController extends Controller
         }
         $laboratorio = App\Laboratorio::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $laboratorio
-        ]);
+        ]);*/
 
-        //return view('laboratorio.edit', compact('laboratorio'));
+        return view('laboratorio.edit', compact('laboratorio'));
     }
 
     /**
@@ -122,12 +122,12 @@ class LaboratorioController extends Controller
 
         $laboratorio->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('laboratorio.index')
-                ->with('exito', 'se ha modificado el laboratorio correctamente');*/
+        return redirect()->route('laboratorio.index')
+                ->with('exito', 'se ha modificado el laboratorio correctamente');
     }
 
     /**

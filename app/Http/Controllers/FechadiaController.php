@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class FechadiaController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $fechadias = App\Fechadia::orderby('fecha', 'asc')->get();
         return response()->json([
             $fechadias
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +42,8 @@ class FechadiaController extends Controller
         }
         $diagnosticos = App\Diagnostico::orderby('tipo', 'asc')->get();
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
-        return view('fechadia.create', compact('diagnosticos', 'pacientes'));
-        //return view('fechadia.insert', compact('diagnosticos', 'pacientes'));
+        //return view('fechadia.create', compact('diagnosticos', 'pacientes'));
+        return view('fechadia.insert', compact('diagnosticos', 'pacientes'));
     }
 
     /**
@@ -55,14 +55,14 @@ class FechadiaController extends Controller
     public function store(Request $request)
     {
 
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Fechadia::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'fecha' => 'required',
             'iddiagnostico' => 'required',
             'idpaciente' => 'required'
@@ -71,7 +71,7 @@ class FechadiaController extends Controller
         App\Fechadia::create($request->all());      
         
         return redirect()->route('fechadia.index')
-                ->with('exito', 'se ha creado la fecha de diagonostico correctamente');*/
+                ->with('exito', 'se ha creado la fecha de diagonostico correctamente');
     }
 
     /**
@@ -108,11 +108,11 @@ class FechadiaController extends Controller
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
         $fechadia = App\Fechadia::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $fechadia
-        ]);
+        ]);*/
 
-        //return view('fechadia.edit', compact('fechadia', 'diagnosticos', 'pacientes'));
+        return view('fechadia.edit', compact('fechadia', 'diagnosticos', 'pacientes'));
     }
 
     /**
@@ -134,12 +134,12 @@ class FechadiaController extends Controller
 
         $fechadia->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('fechadia.index')
-                ->with('exito', 'se ha modificado la fecha del diagnostico correctamente');*/
+        return redirect()->route('fechadia.index')
+                ->with('exito', 'se ha modificado la fecha del diagnostico correctamente');
     }
 
     /**

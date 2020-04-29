@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 //hospital
         Gate::define('crear-hospital', function($user) {
-            return $user->hasAnyRol(['admin','medico']);
+            return $user->hasRol('admin');
         });
 
         Gate::define('editar-hospital', function($user) {

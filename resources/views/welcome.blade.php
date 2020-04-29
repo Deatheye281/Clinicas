@@ -33,6 +33,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/home') }}" class="nav-link">Inicio</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{route('users.index')}}" class="nav-link">Administrar usuarios</a>
+      </li>
       @else
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('login') }}" class="nav-link">Iniciar sesion</a>
@@ -223,6 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
           <a href="{{route('diagnostico.index')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>

@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class PacienteController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
         return response()->json([
             $pacientes
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +41,8 @@ class PacienteController extends Controller
         }
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
         $salas = App\Sala::orderby('nombre', 'asc')->get();
-        return view('paciente.create', compact('salas', 'pacientes'));
-        //return view('paciente.insert', compact('salas', 'pacientes'));
+        //return view('paciente.create', compact('salas', 'pacientes'));
+        return view('paciente.insert', compact('salas', 'pacientes'));
     }
 
     /**
@@ -54,14 +54,14 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
 
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Paciente::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'N_registro' => 'required',
             'N_cama' => 'required',
             'nombre' => 'required',
@@ -74,7 +74,7 @@ class PacienteController extends Controller
         App\Paciente::create($request->all());      
         
         return redirect()->route('paciente.index')
-                ->with('exito', 'se ha creado el paciente correctamente');*/
+                ->with('exito', 'se ha creado el paciente correctamente');
     }
 
     /**
@@ -108,11 +108,11 @@ class PacienteController extends Controller
         $salas = App\Sala::orderby('nombre', 'asc')->get();
         $paciente = App\Paciente::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $paciente
-        ]);
+        ]);*/
 
-        //return view('paciente.edit', compact('paciente', 'salas'));
+        return view('paciente.edit', compact('paciente', 'salas'));
     }
 
     /**
@@ -138,12 +138,12 @@ class PacienteController extends Controller
 
         $paciente->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('paciente.index')
-                ->with('exito', 'se ha modificado el paciente correctamente');*/
+        return redirect()->route('paciente.index')
+                ->with('exito', 'se ha modificado el paciente correctamente');
     }
 
     /**

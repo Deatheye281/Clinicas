@@ -5,7 +5,7 @@ Hospital
 @endsection
 
 @section('contenido')
-@include('hospital.modal')
+{{--@include('hospital.modal')--}}
 <h1 class="text-center">Hospital</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,31 +17,32 @@ Hospital
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Cantidad de camas</th>
-                <th>Funciones</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Direccion</th>
+                <th class="text-center">Telefono</th>
+                <th class="text-center">Cantidad de camas</th>
+                <th class="text-center">Funciones</th>
             <tr>
         </thead>
         <tbody id="tablaDatos">
             @foreach ($hospitales as $hospital)
-            <tr>
-                <td>{{$hospital -> nombre}}</td>
-                <td>{{$hospital -> direccion}}</td>
-                <td>{{$hospital -> telefono}}</td>
-                <td>{{$hospital -> camas}}</td>
+            <tr class="text-center">
+                <td class="text-center">{{$hospital -> nombre}}</td>
+                <td class="text-center">{{$hospital -> direccion}}</td>
+                <td class="text-center">{{$hospital -> telefono}}</td>
+                <td class="text-center">{{$hospital -> camas}}</td>
                 <td>
                     <form action="{{route('hospital.destroy', $hospital->id)}}" method="post">
-                    <a href="{{route('hospital.show', $hospital->id)}}" class="btn btn-info float-left">Ver</a>
-                    {{--<a href="{{route('hospital.edit', $hospital->id)}}" class="btn btn-primary">Editar</a>--}}
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$hospital->id}}" onclick="mostrar(this)">
-                        Editar
-                    </button>
+                    <a href="{{route('hospital.show', $hospital->id)}}" class="btn btn-info">Ver</a> 
+                    @can('editar-hospital')
+                    <a href="{{route('hospital.edit', $hospital->id)}}" class="btn btn-primary">Editar</a>                    
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$hospital->id}}" onclick="mostrar(this)">Editar</button>--}}
+                    @endcan
+                    @can('eliminar-hospital')
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button> 
+                    @endcan
                     </form>
                 </td>
             <tr>  
@@ -50,12 +51,27 @@ Hospital
     </table>
     <br><br>
 
-    <div class="row">
-        <a href="{{route('hospital.create')}} "><button class="btn btn-success">Crear hospital</button></a>
-        <a href="{{route('medico.index')}}"><button class="btn btn-success">Lista de medicos</button></a>
-        <a href="{{route('laboratorio.index')}}"><button class="btn btn-success">Lista de laboratorios</button></a>
-    </div>
-    <script>
+   
+<div class="row">
+    <ul>
+
+    <li><h5>Crear un nuevo hospital</h5>
+    <a href="{{route('hospital.create')}}"><button class="btn btn-success">Crear Hospital</button></a> </li>
+
+   <li><h5>Crear un nuevo medico</h5>
+    <a href="{{route('medico.index')}}"><button class="btn btn-success">Crear Medico</button></a> </li>
+
+   <li> <h5>Crear una nueva sala</h5>
+    <a href="{{route('sala.index')}}"><button class="btn btn-success">Crear Salas</button></a></li>
+
+    <li><h5>Crear un nuevo laboratorio</h5>
+        <a href="{{route('laboratorio.index')}}"><button class="btn btn-success">Crear Laboratorios</button></a></li>
+    <li><h5>Home</h5>
+    <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+    </ul>
+    
+</div>
+    {{--<script>
         function mostrar(btn){
             var ruta = "hospital/" + btn.value + "/edit";            
             $.get(ruta, function(respuesta){                
@@ -90,11 +106,12 @@ Hospital
             tabla.empty();
 
             $.get(ruta, function(respuesta){
+                console.log(respuesta);
                 respuesta[0].forEach(element => {
                     tabla.append("<tr><td>" + element.nombre + "</td><td>" + element.direccion + "</td><td>" + element.telefono + "</td><td>" + element.camas + "</td><td><button class='btn btn-info'>Ver</button><button class='btn btn-success'>Editar</button><button class='btn btn-danger'>Eliminar</button></td></tr>");
                 });
             });           
         }
-    </script>
+    </script>--}}
 @endsection
 

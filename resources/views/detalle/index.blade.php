@@ -5,7 +5,7 @@ Informacion
 @endsection
 
 @section('contenido')
-@include('detalle.modal')
+{{--@include('detalle.modal')--}}
 <h1 class="text-center">Informacion</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,30 +17,34 @@ Informacion
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Hospital asignado</th>
-                <th>Laboratorio asignado</th>                
-                <th>Descripcion</th>
-                <th>Fecha</th>
-                <th>Funciones</th>                
+                <th class="text-center">ID Hospital</th>
+                <th class="text-center">ID Laboratorio</th>                
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Funciones</th>                
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($detalles as $detalle)
-            <tr>
-                <td>{{$detalle -> idhospital}}</td>                
-                <td>{{$detalle -> idlaboratorio}}</td>
-                <td>{{$detalle -> descripcion}}</td> 
-                <td>{{$detalle -> fecha}}</td>                
-                <td>
+            <tr class="text-center">
+                <td class="text-center">{{$detalle -> idhospital}}</td>                
+                <td class="text-center">{{$detalle -> idlaboratorio}}</td>
+                <td class="text-center">{{$detalle -> descripcion}}</td> 
+                <td class="text-center">{{$detalle -> fecha}}</td>                
+                <td class="text-center">
                     <form action="{{route('detalle.destroy', $detalle->id)}}" method="post">
                     <a href="{{route('detalle.show', $detalle->id)}}" class="btn btn-info">Ver</a>
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$detalle->id}}" onclick="mostrar(this)">
+                    @can('editar-detalle')
+                    <a href="{{route('detalle.edit', $detalle->id)}}" class="btn btn-primary">Editar</a>
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$detalle->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
-                    {{--<a href="{{route('detalle.edit', $detalle->id)}}" class="btn btn-primary">Editar</a>--}}
+                    </button>--}}
+                    @endcan                    
+                    @can('eliminar-detalle')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>  
@@ -49,10 +53,14 @@ Informacion
     </table>
     <br><br>
 
-    <div class="row">
-        <a href="{{route('detalle.create')}} "><button class="btn btn-success">Crear informacion</button></a>
+   <div class="row">
+        <ul><li><h5>Crear un nuevo detalle</h5>
+            <a href="{{route('detalle.create')}} "><button class="btn btn-success">Crear informacion</button></a>
+        <li><h5>Home</h5>
+                <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+        </ul>
     </div>
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "detalle/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -92,5 +100,5 @@ Informacion
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection

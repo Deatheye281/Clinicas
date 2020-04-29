@@ -30,7 +30,7 @@ Route::resource('detalle', 'DetalleController');
 Route::resource('consulta', 'ConsultaController');
 Route::resource('fechadia', 'FechadiaController');
 
-Route::post('hospital/guardar', 'HospitalController@store');
+/*Route::post('hospital/guardar', 'HospitalController@store');
 
 Route::get('hospitales/', 'HospitalController@listar');
 
@@ -64,7 +64,7 @@ Route::get('detalles/', 'DetalleController@listar');
 
 Route::post('fechadia/guardar', 'FechadiaController@store');
 
-Route::get('fechadias/', 'FechadiaController@listar');
+Route::get('fechadias/', 'FechadiaController@listar');*/
 
 Route::resource('Admin/users','Admin\UserController')->middleware('can:administrar-usuarios');
 

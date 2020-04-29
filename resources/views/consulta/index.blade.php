@@ -5,7 +5,7 @@ Consulta
 @endsection
 
 @section('contenido')
-@include('consulta.modal')
+{{--@include('consulta.modal')--}}
 <h1 class="text-center">Consulta</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,28 +17,32 @@ Consulta
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Medico asignado</th>
-                <th>Paciente asignado</th>              
-                <th>Fecha</th>
-                <th>Funciones</th>                
+                <th class="text-center">ID Medico</th>
+                <th class="text-center">ID Paciente</th>              
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Funciones</th>                
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($consultas as $consulta)
-            <tr>                
-                <td>{{$consulta -> idmedico}}</td>                
-                <td>{{$consulta -> idpaciente}}</td>                                                
-                <td>{{$consulta -> fecha}}</td>                
-                <td>
+            <tr class="text-center">                
+                <td class="text-center">{{$consulta -> idmedico}}</td>                
+                <td class="text-center">{{$consulta -> idpaciente}}</td>                                                
+                <td class="text-center">{{$consulta -> fecha}}</td>                
+                <td class="text-center">
                     <form action="{{route('consulta.destroy', $consulta->id)}}" method="post">
                     <a href="{{route('consulta.show', $consulta->id)}}" class="btn btn-info">Ver</a>
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$consulta->id}}" onclick="mostrar(this)">
+                    @can('editar-consulta')
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$consulta->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
-                    {{--<a href="{{route('consulta.edit', $consulta->id)}}" class="btn btn-primary">Editar</a>--}}
+                    </button>--}}                    
+                    <a href="{{route('consulta.edit', $consulta->id)}}" class="btn btn-primary">Editar</a>
+                    @endcan
+                    @can('eliminar-consulta')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>               
@@ -48,10 +52,15 @@ Consulta
     <br><br>
 
     <div class="row">
+    <ul>
+    <li><h5>Crear una nueva consulta</h5>
         <a href="{{route('consulta.create')}} "><button class="btn btn-success">Crear consulta</button></a>
+    <li><h5>Home</h5>
+            <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+    </ul>
     </div>
 
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "consulta/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -90,5 +99,5 @@ Consulta
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection

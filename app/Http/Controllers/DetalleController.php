@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class DetalleController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $detalles = App\Detalle::orderby('descripcion', 'asc')->get();
         return response()->json([
             $detalles
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +42,8 @@ class DetalleController extends Controller
         }
         $laboratorios = App\Laboratorio::orderby('nombre', 'asc')->get();
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
-        return view('detalle.create', compact('hospitales', 'laboratorios'));
-        //return view('detalle.insert', compact('hospitales', 'laboratorios'));
+        //return view('detalle.create', compact('hospitales', 'laboratorios'));
+        return view('detalle.insert', compact('hospitales', 'laboratorios'));
     }
 
     /**
@@ -54,14 +54,14 @@ class DetalleController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Detalle::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'descripcion' => 'required',
             'fecha' => 'required',
             'idlaboratorio' => 'required',
@@ -71,7 +71,7 @@ class DetalleController extends Controller
         App\Detalle::create($request->all());      
         
         return redirect()->route('detalle.index')
-                ->with('exito', 'se ha creado el detalle correctamente');*/
+                ->with('exito', 'se ha creado el detalle correctamente');
     }
 
     /**
@@ -107,11 +107,11 @@ class DetalleController extends Controller
         $hospitales = App\Hospital::orderby('nombre', 'asc')->get();
         $detalle = App\Detalle::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $detalle
-        ]);
+        ]);*/
 
-        //return view('detalle.edit', compact('detalle', 'laboratorios', 'hospitales'));
+        return view('detalle.edit', compact('detalle', 'laboratorios', 'hospitales'));
     }
 
     /**
@@ -134,12 +134,12 @@ class DetalleController extends Controller
 
         $detalle->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('detalle.index')
-                ->with('exito', 'se ha modificado el detalle correctamente');*/
+        return redirect()->route('detalle.index')
+                ->with('exito', 'se ha modificado el detalle correctamente');
     }
 
     /**

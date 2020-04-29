@@ -5,7 +5,7 @@ Diagnostico
 @endsection
 
 @section('contenido')
-@include('diagnostico.modal')
+{{--@include('diagnostico.modal')--}}
 <h1 class="text-center">Diagnostico</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,26 +17,31 @@ Diagnostico
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Tipo</th>
-                <th>Complicacion</th>
-                <th>Funciones</th>                
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Complicacion</th>
+                <th class="text-center">Funciones</th>                
             <tr>
         </thead>
         <tbody id="tablaDatos">
             @foreach ($diagnosticos as $diagnostico)
-            <tr>
-                <td>{{$diagnostico -> tipo}}</td>
-                <td>{{$diagnostico -> complicacion}}</td>                
-                <td>
+            <tr class="text-center">
+                <td class="text-center">{{$diagnostico -> tipo}}</td>
+                <td class="text-center">{{$diagnostico -> complicacion}}</td>                
+                <td class="text-center">
                     <form action="{{route('diagnostico.destroy', $diagnostico->id)}}" method="post">
                     <a href="{{route('diagnostico.show', $diagnostico->id)}}" class="btn btn-info">Ver</a>
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$diagnostico->id}}" onclick="mostrar(this)">
+                    @can('editar-diagnostico')
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$diagnostico->id}}" onclick="mostrar(this)">
                         Editar
-                    </button>
-                    {{--<a href="{{route('diagnostico.edit', $diagnostico->id)}}" class="btn btn-primary">Editar</a>--}}
+                    </button>--}}
+                    <a href="{{route('diagnostico.edit', $diagnostico->id)}}" class="btn btn-primary">Editar</a>
+                    @endcan
+                    
+                    @can('eliminar-diagnostico')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>  
@@ -46,10 +51,15 @@ Diagnostico
     <br><br>
 
     <div class="row">
-        <a href="{{route('diagnostico.create')}} "><button class="btn btn-success">Crear diagnostico</button></a>
+        <ul>
+            <li><h5>Crear un nuevo diagnostico</h5>
+            <a href="{{route('diagnostico.create')}} "><button class="btn btn-success">Crear diagnostico</button></a>
+        <li><h5>Home</h5>
+                <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+        </ul>
     </div>
 
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "diagnostico/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -87,6 +97,6 @@ Diagnostico
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection
 

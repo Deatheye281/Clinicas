@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class ConsultaController extends Controller
 {
 
-    public function listar()
+    /*public function listar()
     {
         $consultas = App\Consulta::orderby('fecha', 'asc')->get();
         return response()->json([
             $consultas
         ]);
-    }
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +42,8 @@ class ConsultaController extends Controller
         }
         $medicos = App\Medico::orderby('nombre', 'asc')->get();
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
-        return view('consulta.create', compact('medicos', 'pacientes'));
-        //return view('consulta.insert', compact('medicos', 'pacientes'));
+        //return view('consulta.create', compact('medicos', 'pacientes'));
+        return view('consulta.insert', compact('medicos', 'pacientes'));
     }
 
     /**
@@ -55,14 +55,14 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
 
-        if($request->ajax()){
+        /*if($request->ajax()){
             App\Consulta::create($request->all());
             return response()->json([
                 'mensaje' => 'Creado'
             ]);
-        }
+        }*/
 
-        /*$request->validate([
+        $request->validate([
             'fecha' => 'required',
             'idmedico' => 'required',
             'idpaciente' => 'required'
@@ -71,7 +71,7 @@ class ConsultaController extends Controller
         App\Consulta::create($request->all());      
         
         return redirect()->route('consulta.index')
-                ->with('exito', 'se ha creado la consulta correctamente');*/
+                ->with('exito', 'se ha creado la consulta correctamente');
     }
 
     /**
@@ -107,11 +107,11 @@ class ConsultaController extends Controller
         $pacientes = App\Paciente::orderby('nombre', 'asc')->get();
         $consulta = App\Consulta::findorfail($id);
 
-        return response()->json([
+        /*return response()->json([
             $consulta
-        ]);
+        ]);*/
 
-        //return view('consulta.edit', compact('consulta', 'medicos', 'pacientes'));
+        return view('consulta.edit', compact('consulta', 'medicos', 'pacientes'));
     }
 
     /**
@@ -133,12 +133,12 @@ class ConsultaController extends Controller
 
         $consulta->update($request->all());
 
-        return response()->json([
+        /*return response()->json([
             "mensaje" => "modificado"
-        ]);
+        ]);*/
 
-        /*return redirect()->route('consulta.index')
-                ->with('exito', 'se ha modificado la consulta correctamente');*/
+        return redirect()->route('consulta.index')
+                ->with('exito', 'se ha modificado la consulta correctamente');
     }
 
     /**

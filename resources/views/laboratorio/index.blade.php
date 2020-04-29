@@ -5,7 +5,7 @@ Laboratorio
 @endsection
 
 @section('contenido')
-@include('laboratorio.modal')
+{{--@include('laboratorio.modal')--}}
 <h1 class="text-center">Laboratorio</h1>
 <br><br>
     @if ($message = Session::get('exito'))
@@ -17,28 +17,30 @@ Laboratorio
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Direccion</th>
-                <th>Telefono</th> 
-                <th>Funciones</th>               
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Direccion</th>
+                <th class="text-center">Telefono</th> 
+                <th class="text-center">Funciones</th>               
             <tr>
         </thead>
-        <tbody>
+        <tbody id="tablaDatos">
             @foreach ($laboratorios as $laboratorio)
             <tr>
-                <td>{{$laboratorio -> nombre}}</td>
-                <td>{{$laboratorio -> direccion}}</td>
-                <td>{{$laboratorio -> telefono}}</td>
-                <td>
-                    <form action="{{route('laboratorio.destroy', $laboratorio->id)}}" method="post">
-                    <a href="{{route('laboratorio.show', $laboratorio->id)}}" class="btn btn-info">Ver</a>
-                    {{--<a href="{{route('laboratorio.edit', $laboratorio->id)}}" class="btn btn-primary">Editar</a>--}}
-                    <button type="button" class="btn btn-primary float-left" data-toggle="modal" data-target="#modalEditar" value="{{$laboratorio->id}}" onclick="mostrar(this)">
-                        Editar
-                    </button>
+                <td class="text-center">{{$laboratorio -> nombre}}</td>
+                <td class="text-center">{{$laboratorio -> direccion}}</td>
+                <td class="text-center">{{$laboratorio -> telefono}}</td>
+                <td class="text-center">
+                    <form action="{{route('laboratorio.destroy', $laboratorio->id)}}" method="post"> 
+                    <a href="{{route('laboratorio.show', $laboratorio->id)}}" class="btn btn-info">Ver</a>                    
+                    @can('editar-laboratorio')
+                    <a href="{{route('laboratorio.edit', $laboratorio->id)}}" class="btn btn-primary">Editar</a>
+                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" value="{{$laboratorio->id}}" onclick="mostrar(this)">Editar</button>--}}
+                    @endcan
+                    @can('eliminar-laboratorio')
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                    @endcan
                     </form>
                 </td>
             <tr>  
@@ -48,9 +50,13 @@ Laboratorio
     <br><br>
 
     <div class="row">
+    <ul><li><h5>Crear laboratorio</h5>
         <a href="{{route('laboratorio.create')}} "><button class="btn btn-success">Crear laboratorio</button></a>
+    <li><h5>Home</h5>
+        <a href="{{route('inicio')}}"><button class="btn btn-primary">Volver</button></a></li>
+    </ul>
     </div>
-    <script>
+    {{--<script>
         function mostrar(btn){
             var ruta = "laboratorio/" + btn.value + "/edit";
             $.get(ruta, function(respuesta){
@@ -89,6 +95,6 @@ Laboratorio
                 });
             });
         }
-    </script>
+    </script>--}}
 @endsection
 
