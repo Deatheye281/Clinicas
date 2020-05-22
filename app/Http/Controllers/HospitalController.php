@@ -149,4 +149,14 @@ class HospitalController extends Controller
         return redirect()->route('hospital.index')
                 ->with('exito', 'se ha eliminado el hospital correctamente');
     }
+
+    public function darHospitales(){
+        $hospitales = App\Hospital::orderBy('nombre','asc')->get();
+
+        return response()->json($hospitales);
+    }
+
+    public function guardarHospital(Request $request){
+        return App\Hospital::create($request->all());
+    }
 }
